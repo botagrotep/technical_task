@@ -19,17 +19,25 @@
 -- Table structure for table `fish`
 --
 
-DROP TABLE IF EXISTS `fish`;
+-- DROP TABLE IF EXISTS `fish`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `fish` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `catch_date` datetime(6) DEFAULT NULL,
-  `image_file_name` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `price` double NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+------------------------------------------------------------------------------------------------------
+-- Оскільки є третій пункт завдання - про редагування продбази. Уявімо що база є і має таку таблицю "fish"
+-- яку створює цей запит
+--              |
+--             \/
+-- CREATE TABLE IF NOT EXISTS `fish` (
+--   `id` int NOT NULL AUTO_INCREMENT,
+--   `catch_date` datetime(6) DEFAULT NULL,
+--   `image_file_name` varchar(255) DEFAULT NULL,
+--   `name` varchar(255) DEFAULT NULL,
+--   `price` double NOT NULL,
+--   PRIMARY KEY (`id`)
+-- )
+-- --     ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+-- ;
+------------------------------------------------------------------------------------------------
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

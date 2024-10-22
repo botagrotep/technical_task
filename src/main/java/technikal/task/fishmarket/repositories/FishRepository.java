@@ -1,4 +1,4 @@
-package technikal.task.fishmarket.services;
+package technikal.task.fishmarket.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
