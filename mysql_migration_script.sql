@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    login VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS fish (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DOUBLE NOT NULL,
+    catchDate DATE NOT NULL,
+    users INT,
+    FOREIGN KEY (users) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS fish_image (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    image_file_name VARCHAR(255) NOT NULL,
+    fish_id INT,
+    FOREIGN KEY (fish_id) REFERENCES fish(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE INDEX idx_fish_users ON fish(users);
+CREATE INDEX idx_fish_image_fish_id ON fish_image(fish_id);

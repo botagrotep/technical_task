@@ -16,26 +16,23 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `fish`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `fish`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `fish` (
+CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `price` double NOT NULL,
-  `catchDate` date NOT NULL,
-  `users` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_fish_users` (`users`),
-  CONSTRAINT `fk_fish_users` FOREIGN KEY (`users`) REFERENCES `users` (`id`) ON DELETE SET NULL
+  `login` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fish`
+-- Dumping data for table `users`
 --
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

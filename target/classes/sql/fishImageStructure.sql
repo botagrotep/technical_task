@@ -13,29 +13,27 @@
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40111 SET @OLD_SQL_NOTES@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `fish`
+-- Table structure for table `fish_image`
 --
 
-DROP TABLE IF EXISTS `fish`;
+DROP TABLE IF EXISTS `fish_image`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `fish` (
+CREATE TABLE `fish_image` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `price` double NOT NULL,
-  `catchDate` date NOT NULL,
-  `users` int DEFAULT NULL,
+  `image_file_name` varchar(255) NOT NULL,
+  `fish_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_fish_users` (`users`),
-  CONSTRAINT `fk_fish_users` FOREIGN KEY (`users`) REFERENCES `users` (`id`) ON DELETE SET NULL
+  KEY `idx_fish_image_fish_id` (`fish_id`),
+  CONSTRAINT `fk_fish_image_fish` FOREIGN KEY (`fish_id`) REFERENCES `fish` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fish`
+-- Dumping data for table `fish_image`
 --
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

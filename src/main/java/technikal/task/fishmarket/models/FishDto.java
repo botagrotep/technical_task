@@ -1,9 +1,13 @@
 package technikal.task.fishmarket.models;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+
+import java.util.List;
 
 public class FishDto {
 	
@@ -13,7 +17,12 @@ public class FishDto {
 	@Min(0)
 	private double price;
 	private MultipartFile imageFile;
-	
+	@NotNull(message = "Потрібно завантажити від 1 до 9 фотографій")
+	@Size(min = 1, max = 9, message = "Потрібно завантажити від 1 до 9 фотографій")
+	private List<MultipartFile> imageFiles;
+	@NotNull(message = "Юзер не може бути пустим")
+	private long userId;
+
 	public String getName() {
 		return name;
 	}
@@ -33,4 +42,11 @@ public class FishDto {
 		this.imageFile = imageFile;
 	}
 
+	public List<MultipartFile> getImageFiles() {
+		return imageFiles;
+	}
+
+	public void setImageFiles(List<MultipartFile> imageFiles) {
+		this.imageFiles = imageFiles;
+	}
 }
