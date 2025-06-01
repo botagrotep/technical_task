@@ -26,5 +26,6 @@
 hs_err_pid*
 replay_pid*
 
-/src/main/resources/static/images
+/public/images/*
 
+target

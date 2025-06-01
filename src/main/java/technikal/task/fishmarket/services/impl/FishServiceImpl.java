@@ -39,7 +39,6 @@ public class FishServiceImpl implements FishService {
 
         var fish = new Fish();
         fish.setCatchDate(new Date());
-        var catchDate = new Date();
         fish.setImageFileNames(imageNames);
         fish.setName(fishDto.getName());
         fish.setPrice(fishDto.getPrice());
