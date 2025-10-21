@@ -16,7 +16,9 @@
         <div class="col-md-8 mx-auto rounded border p-4 m-4">
             <h2 class="text-center mb-5">Нова рибка</h2>
 
-            <form method="post" enctype="multipart/form-data" th:object="${fishDto}">
+            <form method="post" enctype="multipart/form-data"
+                  th:object="${fishDto}" th:action="@{/fish/create}">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
                 <!-- Назва -->
                 <div class="row mb-3">

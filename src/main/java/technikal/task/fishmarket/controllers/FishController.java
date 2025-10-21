@@ -52,7 +52,6 @@ public class FishController {
             Fish fish = fishRepo.findById(id).orElse(null);
             if (fish == null) return "redirect:/fish";
 
-            // удалить все изображения с диска
             if (fish.getImages() != null) {
                 for (FishImage img : fish.getImages()) {
                     Path imagePath = Paths.get("public/images/" + img.getImageFileName());
