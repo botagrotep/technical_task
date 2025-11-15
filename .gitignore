@@ -1,0 +1,25 @@
+# Eclipse
+.factorypath
+.project
+.settings/
+
+# Maven / Gradle
+/target/
+/build/
+
+# OS temporary files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# Uploaded files / generated images (если нужно)
+public/images/
+
+# Compiled classes
+*.class
