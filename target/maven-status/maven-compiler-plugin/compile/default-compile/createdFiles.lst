@@ -1,0 +1,7 @@
+technikal\task\fishmarket\controllers\FishController.class
+technikal\task\fishmarket\FishmarketApplication.class
+technikal\task\fishmarket\models\FishDto.class
+technikal\task\fishmarket\services\FishRepository.class
+technikal\task\fishmarket\models\Fish.class
+technikal\task\fishmarket\models\UserRols.class
+technikal\task\fishmarket\models\User.class
