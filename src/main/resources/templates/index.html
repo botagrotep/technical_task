@@ -1,64 +1,100 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Best fish</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-      .image-container {
-          position: relative;
-          display: inline-block;
-      }
+<html lang="uk" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Найкраща риба - Список</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
 
-      .image-container img {
-          transition: transform 0.3s ease; 
-          width: 100px;
-      }
+    .images-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        max-width: 220px;
+    }
 
-      .image-container:hover img {
-          transform: scale(4); 
-          z-index: 10; 
-          position: relative;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1 class="text-center my-4">Рибка на продаж</h1>
-    
-      <a class="btn btn-success" href="/fish/create">Додати рибки</a>
-    
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Товар</th>
-            <th>Ціна</th>
-            <th>Дата вилову</th>
-            <th>Фото</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="fish : ${fishlist}">
-            <td th:text="${fish.id}"></td>
-            <td th:text="${fish.name}"></td>
-            <td th:text="${fish.price} + '₴'"></td>
-            <td th:text="${fish.catchDate.toString().substring(0,10)}"></td>
-            <td>
-              <div class="image-container">
-                <img th:src="@{'/images/'+${fish.imageFileName}}" alt="..." width="100">
-              </div>
-            </td>
-            <td>
-              <a class="btn btn-danger btn-sm" th:href="@{/fish/delete(id=${fish.id})}" onclick="return confirm('Ви впевнені?')">Прибрати</a> 
-            </td>
-          </tr>
-        </tbody>   
-      </table>
-    </div>
-   
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
+    .image-container {
+        position: relative;
+        display: inline-block;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        overflow: hidden;
+        background: #f8f9fa;
+    }
+
+    .image-container img {
+        transition: transform 0.3s ease;
+        width: 60px;
+        height: 45px;
+        object-fit: cover;
+        display: block;
+    }
+
+
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1 class="text-center my-4">Рибка на продаж</h1>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <a sec:authorize="hasRole('ADMIN')" class="btn btn-success"  href="/fish/create">Додати рибку</a>
+    <span class="text-muted" th:if="${fishlist != null}" th:text="'Всього позицій: ' + ${fishlist.size()}"></span>
+    <form th:action="@{/logout}" method="post" style="margin: 0;">
+      <button type="submit" class="btn btn-outline-danger btn-sm">
+        Вийти ([[${#authentication.name}]])
+      </button>
+    </form>
+  </div>
+
+  <table class="table table-hover align-middle">
+    <thead class="table-light">
+    <tr>
+      <th>ID</th>
+      <th>Товар</th>
+      <th>Ціна</th>
+      <th>Дата вилову</th>
+      <th>Фото</th>
+      <th sec:authorize="hasRole('ADMIN')" class="text-end">Дії</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="fish : ${fishlist}">
+      <td th:text="${fish.id}"></td>
+      <td class="fw-bold" th:text="${fish.name}"></td>
+      <td th:text="${fish.price} + ' ₴'"></td>
+      <td th:text="${#dates.format(fish.catchDate, 'dd.MM.yyyy HH:mm')}"></td>
+      <td>
+        <div class="images-wrapper">
+          <div th:each="img : ${fish.images}" class="image-container">
+            <img th:src="@{'/images/' + ${img.fileName}}" alt="Fish image">
+          </div>
+          <span th:if="${#lists.isEmpty(fish.images)}" class="text-muted small italic">Немає фото</span>
+        </div>
+      </td>
+      <td sec:authorize="hasRole('ADMIN')" class="text-end">
+        <a class="btn btn-danger btn-sm"
+           th:href="@{/fish/delete(id=${fish.id})}"
+           onclick="return confirm('Ви впевнені, що хочете видалити цей товар?')">
+          Прибрати
+        </a>
+      </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(fishlist)}">
+      <td colspan="6" class="text-center py-5 text-muted">
+        Риба поки що не додана.
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
 </html>
